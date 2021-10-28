@@ -296,18 +296,19 @@ def main():
     else:
         input_ids = input_ids[:args.max_seq_len - 1] + [   
             tokenizer.eos_token_id]
+    input_ids = torch.tensor([input_ids])
 
     print('input ids size: ', input_ids.size())
 
     model.model.encoder.config.gradient_checkpointing = True
     model.model.decoder.config.gradient_checkpointing = True
 
-    res_ids = model.generate(torch.tensor([input_ids]),
-                                        max_length=1024,
-                                        num_beams=5,
-                                        no_repeat_ngram_size = 3,
-                                        eos_token_id=tokenizer.eos_token_id,
-                                        bad_words_ids=[[tokenizer.unk_token_id]])        
+    res_ids = model.generate(input_ids,
+                             max_length=1024,
+                             num_beams=5,
+                             no_repeat_ngram_size = 3,
+                             eos_token_id=tokenizer.eos_token_id,
+                             bad_words_ids=[[tokenizer.unk_token_id]])        
     res = tokenizer.batch_decode(res_ids.tolist(), skip_special_tokens=True)[0]
     print('\n\nsummary text\n\n',res)
 
