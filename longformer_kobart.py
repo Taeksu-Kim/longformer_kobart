@@ -253,7 +253,7 @@ def main():
     parser.add_argument(
         '--max_pos',
         type=int,
-        default=1206 * 4,
+        default=1026 * 4,
         help='maximum encoder positions, mutiple of origin maximum encoder positions'
     )
 
@@ -269,6 +269,7 @@ def main():
     if not os.path.exists(args.save_model_to):
         os.mkdir(args.save_model_to)
 
+    new_encoder_pos_embed
     create_long_model(
         save_model_to=args.save_model_to,
         base_model=args.base_model,
@@ -277,7 +278,6 @@ def main():
         max_pos=args.max_pos
     )
 
-    print(args)
     tokenizer = PreTrainedTokenizerFast.from_pretrained(args.save_model_to)
     model = LongformerEncoderDecoderForConditionalGeneration.from_pretrained(args.save_model_to)
 
@@ -288,7 +288,30 @@ def main():
     
     print('origin_text\n',text)
 
-    summarize(text, args.max_seq_len)
+    context_tokens = ['<s>'] + tokenizer.tokenize(text) + ['</s>']
+    input_ids = tokenizer.convert_tokens_to_ids(context_tokens) 
+
+    if len(input_ids) < max_seq_len:   
+            while len(input_ids) < max_seq_len: 
+                input_ids += [tokenizer.pad_token_id] 
+
+    else:
+        input_ids = input_ids[:max_seq_len - 1] + [   
+            tokenizer.eos_token_id]
+
+    print('input_ids: ',len(input_ids))
+
+
+    model.model.encoder.config.gradient_checkpointing = True
+    model.model.decoder.config.gradient_checkpointing = True
+
+    res_ids = model.generate(torch.tensor([input_ids]),
+                                        max_length=max_len,
+                                        num_beams=5,
+                                        no_repeat_ngram_size = 3,
+                                        eos_token_id=tokenizer.eos_token_id,
+                                        bad_words_ids=[[tokenizer.unk_token_id]])        
+    res = tokenizer.batch_decode(res_ids.tolist(), skip_special_tokens=True)[0]
 
 if __name__ == "__main__":
     main()
