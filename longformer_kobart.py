@@ -228,13 +228,13 @@ def main():
     parser.add_argument(
         '--base_model',
         type=str,
-        default='gogamza/kobart-base-v2',
+        default='ainize/kobart-news',
         help='The name or path of the base model you want to convert'
     )
     parser.add_argument(
         '--tokenizer_name_or_path',
         type=str,
-        default='gogamza/kobart-base-v2',
+        default='ainize/kobart-news',
         help='The name or path of the tokenizer'
     )
     parser.add_argument(
