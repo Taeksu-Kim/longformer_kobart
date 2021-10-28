@@ -27,6 +27,9 @@ from transformers.models.bart.modeling_bart import shift_tokens_right
 from transformers.models.longformer.modeling_longformer import LongformerSelfAttention
 from transformers.models.bart.modeling_bart import BartLearnedPositionalEmbedding
 
+import warnings
+warnings.filterwarnings(action='ignore')
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
