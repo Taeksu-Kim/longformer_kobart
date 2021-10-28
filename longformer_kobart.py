@@ -304,7 +304,7 @@ def main():
     model.model.decoder.config.gradient_checkpointing = True
 
     res_ids = model.generate(torch.tensor([input_ids]),
-                                        max_length=max_len,
+                                        max_length=1024,
                                         num_beams=5,
                                         no_repeat_ngram_size = 3,
                                         eos_token_id=tokenizer.eos_token_id,
