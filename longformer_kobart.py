@@ -257,7 +257,7 @@ def main():
     )
 
     parser.add_argument(
-        '--args.max_seq_len',
+        '--max_seq_len',
         type=int,
         default=512*8,
         help='maximum sequence length, mutiple of window size'
