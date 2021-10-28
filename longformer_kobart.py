@@ -297,8 +297,7 @@ def main():
         input_ids = input_ids[:args.max_seq_len - 1] + [   
             tokenizer.eos_token_id]
 
-    print('input_ids: ',len(input_ids))
-
+    print('input ids length: ',len(input_ids))
 
     model.model.encoder.config.gradient_checkpointing = True
     model.model.decoder.config.gradient_checkpointing = True
