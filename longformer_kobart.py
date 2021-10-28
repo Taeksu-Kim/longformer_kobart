@@ -223,7 +223,6 @@ def summarize(text, max_len):
     res = tokenizer.batch_decode(res_ids.tolist(), skip_special_tokens=True)[0]
     
     return print(res)
-
 def main():
     parser = argparse.ArgumentParser(description="Convert BART to LongBART. Replaces BART encoder's SelfAttnetion with LongformerSelfAttention")
     parser.add_argument(
@@ -312,6 +311,7 @@ def main():
                                         eos_token_id=tokenizer.eos_token_id,
                                         bad_words_ids=[[tokenizer.unk_token_id]])        
     res = tokenizer.batch_decode(res_ids.tolist(), skip_special_tokens=True)[0]
+    return print(res)
 
 if __name__ == "__main__":
     main()
