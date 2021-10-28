@@ -277,6 +277,7 @@ def main():
         max_pos=args.max_pos
     )
 
+    print(args)
     tokenizer = PreTrainedTokenizerFast.from_pretrained(args.save_model_to)
     model = LongformerEncoderDecoderForConditionalGeneration.from_pretrained(args.save_model_to)
 
