@@ -298,7 +298,7 @@ def main():
             tokenizer.eos_token_id]
     input_ids = torch.tensor([input_ids])
 
-    print('input ids size: ', input_ids.size())
+    print('\ninput ids size: ', input_ids.size())
 
     model.model.encoder.config.gradient_checkpointing = True
     model.model.decoder.config.gradient_checkpointing = True
