@@ -309,7 +309,7 @@ def main():
                                         eos_token_id=tokenizer.eos_token_id,
                                         bad_words_ids=[[tokenizer.unk_token_id]])        
     res = tokenizer.batch_decode(res_ids.tolist(), skip_special_tokens=True)[0]
-    return print(res)
+    print(res)
 
 if __name__ == "__main__":
     main()
