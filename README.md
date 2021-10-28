@@ -1,4 +1,4 @@
-# longformer_kobart
+# longformer kobart
 transformers==4.3.3  
 kobart encoder의 attention layer를 longfomer의 attention layer로 대체하여 input길이를 4096까지 늘리는 코드.
 
