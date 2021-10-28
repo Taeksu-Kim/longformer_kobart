@@ -268,7 +268,6 @@ def main():
     if not os.path.exists(args.save_model_to):
         os.mkdir(args.save_model_to)
 
-    new_encoder_pos_embed
     create_long_model(
         save_model_to=args.save_model_to,
         base_model=args.base_model,
